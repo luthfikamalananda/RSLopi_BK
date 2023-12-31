@@ -7,6 +7,7 @@
 </head>
 <body>
 	<h2>This is the main page</h2>
-	<button id="btnLogin"><a href="login.php">Login</a></button>
+	<button id="btnLogin"><a href="login.php">Login Dokter/Admin</a></button>
+	<button id="btnLogin"><a href="login-pasien.php">Login Pasien</a></button>
 </body>
 </html>
