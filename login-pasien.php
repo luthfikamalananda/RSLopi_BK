@@ -1,7 +1,6 @@
 <?php 
 	session_start();
 	include('includes/dbconn.php');
-	session_destroy();
 ?>
 <!doctype html>
 <html lang="en">
@@ -62,18 +61,17 @@
 			$password = $_POST['password'];
 
 			if (!empty($_POST['nama']) && !empty($_POST['password'])) {
-				$sql = 'SELECT nama, no_hp FROM pasien';
+				$sql = 'SELECT nama, no_ktp, no_rm FROM pasien';
 				$result = $connect->query($sql);
 				while($row = $result->fetch_assoc()) {
 					echo $row['nama'];
 					if ($username == $row["nama"]) {
-						if ($password == $row["no_hp"]) {
+						if ($password == $row["no_ktp"]) {
 							echo 'Kredensial Diterima';
 							$_SESSION['pasien'] = substr($row["nama"], 0, strpos($row["nama"], ' '));
-							print_r($_SESSION);
-							// header('Location: dokter_index.php');
+							$_SESSION['no_RM'] = $row["no_rm"];
+							header('Location: pasien_index.php');
     						die();
-							echo 'login berhasil';
 						}
 						else {
 							echo 'Password Salah';
