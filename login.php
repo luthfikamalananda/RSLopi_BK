@@ -69,7 +69,7 @@
 							echo 'Kredensial Diterima';
 							$_SESSION['dokter'] = substr($row["nama"], 0, strpos($row["nama"], ' '));
 							print_r($_SESSION);
-							header('Location: dokter_index.php');
+							header('Location: pages/dokter/dokter_index.php');
     						die();
 						}
 						else {

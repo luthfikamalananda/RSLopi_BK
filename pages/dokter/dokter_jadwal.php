@@ -1,10 +1,10 @@
 <?php 
   session_start();
-  if (!isset($_SESSION['admin'])) {
+  if (!isset($_SESSION['dokter'])) {
     header('Location: login.php');
     die();
   } else {
-    include('includes/dbconn.php');
+    include('../../includes/dbconn.php');
   }
 ?>
 <!DOCTYPE html>
@@ -53,9 +53,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="admin_index.php" class="logo d-flex align-items-center">
+      <a href="dokter_index.php" class="logo d-flex align-items-center">
         <img src="../../assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Admin RS Lopi</span>
+        <span class="d-none d-lg-block">Dokter RS Lopi</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -125,12 +125,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['dokter']?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Admin</h6>
+              <h6>Dokter</h6>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -157,7 +157,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="functions/logout.php">
+              <a class="dropdown-item d-flex align-items-center" href="../../functions/logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -177,15 +177,25 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="admin_index.php">
+        <a class="nav-link " href="dokter_index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="admin_obat.php">
-          <i class="bi bi-journal-text"></i><span>Obat</span></a>
+        <a class="nav-link collapsed" href="dokter_pasien.php">
+          <i class="bi bi-journal-text"></i><span>Daftar Pasien</span></a>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="dokter_periksa.php">
+          <i class="bi bi-journal-text"></i><span>Periksa</span></a>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="dokter_jadwal.php">
+          <i class="ri-calendar-event-fill"></i><span>Jadwal</span></a>
       </li><!-- End Forms Nav -->
 
     </ul>
@@ -198,7 +208,7 @@
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin_index.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="dokter_index.php">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>

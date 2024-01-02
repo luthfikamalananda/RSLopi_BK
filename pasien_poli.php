@@ -55,7 +55,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="Dokter_index.php" class="logo d-flex align-items-center">
+      <a href="pages/dokter/dokter_index.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Dokter RS Lopi</span>
       </a>
@@ -199,7 +199,7 @@
       <h1>Poli</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="dokter_index.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="pages/dokter/dokter_index.php">Home</a></li>
           <li class="breadcrumb-item active">Poli</li>
         </ol>
       </nav>
