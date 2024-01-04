@@ -14,6 +14,6 @@ if(mysqli_query($connect, $sql)){
     echo "ERROR: Could not able to execute $sql. "  
                             . mysqli_error($connect); 
 }  
-header('Location: ../admin_obat.php');
+header('Location: ../pages/admin/admin_obat.php');
 $connect->close();
 ?>

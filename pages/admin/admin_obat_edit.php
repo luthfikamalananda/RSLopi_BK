@@ -216,7 +216,7 @@
         $kemasan = $row['kemasan'];
         $harga = $row['harga'];
         echo '
-         <form class="row g-3" method="post" action="functions/editObat.php?id='.$id.'">
+         <form class="row g-3" method="post" action="../../functions/editObat.php?id='.$id.'">
                 <div class="col-12">
                   <label for="inputNanme4" class="form-label">Nama Obat</label>
                   <input type="text" class="form-control" name="nama_obat" value="'.$row['nama_obat'].'">
