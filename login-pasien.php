@@ -70,7 +70,7 @@
 							echo 'Kredensial Diterima';
 							$_SESSION['pasien'] = substr($row["nama"], 0, strpos($row["nama"], ' '));
 							$_SESSION['no_RM'] = $row["no_rm"];
-							header('Location: pasien_index.php');
+							header('Location: pages/pasien/pasien_index.php');
     						die();
 						}
 						else {
