@@ -228,7 +228,7 @@
               <h5 class="card-title">Jadwal</h5>
 
               <!-- Floating Labels Form -->
-              <form class="row g-3">
+              <form class="row g-3" action="dokter_jadwal.php" method="POST">
                 <div class="col-md-12">
                   <div class="form-floating">
                     <input type="text" class="form-control" id="floatingName" placeholder="NoRM" name="noRM" value="<?php echo 'Dokter '. $_SESSION['dokter']?>" disabled>
@@ -237,7 +237,7 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="State" name="poliPilihan">
+                    <select class="form-select" id="floatingSelect" aria-label="State" name="hari_input">
                       <option selected disabled>Pilih Hari</option>
                       <option value="Senin">Senin</option>
                       <option value="Selasa">Selasa</option>
@@ -263,7 +263,7 @@
                 </div>
                 <div class="text-center">
                   <button type="reset" class="btn btn-secondary">Reset</button>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary" name="btnSubmit">Submit</button>
                 </div>
               </form><!-- End floating Labels Form -->
 
@@ -338,6 +338,24 @@
 
   <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
+
+
+  <?php
+  if (isset($_POST['btnSubmit'])) {
+    $hari = $_POST['hari_input'];
+    $jam_mulai = $_POST['time_start'];
+    $jam_selesai = $_POST['time_end'];
+    $id_dokter = $_SESSION['id_dokter'];
+
+    $sql = "INSERT jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai) VALUES ('$id_dokter', '$hari', '$jam_mulai', '$jam_selesai')";
+
+    if ($connect->query($sql) === TRUE) {
+      echo "Record added successfully";
+    } else {
+        echo "Error adding record: " . $connect->error;
+    }
+  }
+  ?>
 
 </body>
 
