@@ -61,13 +61,14 @@
 			$password = $_POST['password'];
 
 			if (!empty($_POST['username']) && !empty($_POST['password'])) {
-				$sql = 'SELECT nama, alamat FROM dokter';
+				$sql = 'SELECT id, nama, alamat FROM dokter';
 				$result = $connect->query($sql);
 				while($row = $result->fetch_assoc()) {
 					if ($username == $row["nama"]) {
 						if ($password == $row["alamat"]) {
 							echo 'Kredensial Diterima';
 							$_SESSION['dokter'] = substr($row["nama"], 0, strpos($row["nama"], ' '));
+							$_SESSION['id_dokter'] = $row['id'];
 							print_r($_SESSION);
 							header('Location: pages/dokter/dokter_index.php');
     						die();
