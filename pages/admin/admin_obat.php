@@ -256,7 +256,6 @@
                       $counter = $counter + 1;
                     }
                   ?>
-                  </tr>
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -281,7 +280,7 @@
                     </div>
                     <div class="modal-body">
                       <!-- Vertical Form -->
-              <form class="row g-3" action="functions/addObat.php" method='post'>
+              <form class="row g-3" action="../../functions/addObat.php" method='post'>
                 <div class="col-12">
                   <label for="Nama Obat" class="form-label">Nama Obat</label>
                   <input type="text" class="form-control" name="namaObat" autocomplete="off">
@@ -337,7 +336,6 @@
                   </div>
                 </div>
               </div><!-- End Vertically centered Modal-->
-
     </section>
 
     
@@ -350,7 +348,7 @@
     // Passing ID, (Karena tidak pakai AJAX & JQuery, passing dilakukan manual dg JS ke URL yang nantinya akan refresh dan dibaca lagi oleh Web)
     function delFunc(id) {
       console.log(id);
-      location.href = `functions/deleteObat.php?id=${id}`;
+      location.href = `../../functions/deleteObat.php?id=${id}`;
     };
 
     // Mengubah Edit Obat Modal agar memiliki existing value

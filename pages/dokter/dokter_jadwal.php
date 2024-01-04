@@ -1,7 +1,8 @@
 <?php 
+  ob_start();
   session_start();
   if (!isset($_SESSION['dokter'])) {
-    header('Location: login.php');
+    header('Location: ../../login.php');
     die();
   } else {
     include('../../includes/dbconn.php');
@@ -204,6 +205,13 @@
 
   <main id="main" class="main">
 
+
+  <?php
+  $id_dokter = $_SESSION['id_dokter'];
+  $sqlRead = "SELECT id, hari, jam_mulai, jam_selesai FROM jadwal_periksa WHERE id_dokter=$id_dokter";
+  $result = $connect->query($sqlRead);
+  ?>
+  
     <div class="pagetitle">
       <h1>Jadwal</h1>
       <nav>
@@ -228,7 +236,7 @@
               <h5 class="card-title">Jadwal</h5>
 
               <!-- Floating Labels Form -->
-              <form class="row g-3" action="dokter_jadwal.php" method="POST">
+              <form class="row g-3" action="dokter_jadwal.php" method="POST" name="formJadwal">
                 <div class="col-md-12">
                   <div class="form-floating">
                     <input type="text" class="form-control" id="floatingName" placeholder="NoRM" name="noRM" value="<?php echo 'Dokter '. $_SESSION['dokter']?>" disabled>
@@ -289,13 +297,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <!-- <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td> -->
-                  </tr>
+                    <?php
+                      $counter = 1;
+                      while ($row = $result -> fetch_assoc()) {
+                        echo '<tr>
+                        <th scope="row">'.$counter.'</th>
+                        <td>'.$row['hari'].'</td>
+                        <td>'.$row['jam_mulai'].'</td>
+                        <td>'.$row['jam_selesai'].'</td>
+                        <td><a type="submit" class="btn btn-primary rounded-pill btn-sm" value="'.$row['id'].'" id="btnEdit" href="admin_obat_edit.php?id='.$row['id'].'">Edit</a> 
+                        <a type="submit" class="btn btn-danger rounded-pill btn-sm" value="'.$row['id'].'" id="btnDelete" href="../../functions/deleteJadwal.php?id='.$row['id'].'">Hapus</a>
+                        </tr>';
+                        $counter = $counter + 1;
+                      }
+                    ?>
+
                 </tbody>
               </table>
               <!-- End Default Table Example -->
@@ -308,6 +324,25 @@
 
       </div>
     </section>
+
+    <?php
+  if (isset($_POST['btnSubmit'])) {
+    $hari = $_POST['hari_input'];
+    $jam_mulai = $_POST['time_start'];
+    $jam_selesai = $_POST['time_end'];
+
+    $sql = "INSERT jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai) VALUES ('$id_dokter', '$hari', '$jam_mulai', '$jam_selesai')";
+
+    if ($connect->query($sql) === TRUE) {
+      echo "Record added successfully";
+      
+    } else {
+        echo "Error adding record: " . $connect->error;
+    }
+    header('Location: dokter_jadwal.php');
+    $connect->close();
+    }
+  ?>
 
   </main><!-- End #main -->
   <!-- ======= Footer ======= -->
@@ -339,23 +374,6 @@
   <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
 
-
-  <?php
-  if (isset($_POST['btnSubmit'])) {
-    $hari = $_POST['hari_input'];
-    $jam_mulai = $_POST['time_start'];
-    $jam_selesai = $_POST['time_end'];
-    $id_dokter = $_SESSION['id_dokter'];
-
-    $sql = "INSERT jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai) VALUES ('$id_dokter', '$hari', '$jam_mulai', '$jam_selesai')";
-
-    if ($connect->query($sql) === TRUE) {
-      echo "Record added successfully";
-    } else {
-        echo "Error adding record: " . $connect->error;
-    }
-  }
-  ?>
 
 </body>
 

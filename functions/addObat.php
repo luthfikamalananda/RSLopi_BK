@@ -15,6 +15,6 @@ if ($connect->query($sql) === TRUE) {
     echo "Error adding record: " . $connect->error;
 }
       
-header('Location: ../admin_obat.php');
+header('Location: ../pages/admin/admin_obat.php');
 $connect->close();
 ?>

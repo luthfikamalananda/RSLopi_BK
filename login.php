@@ -87,7 +87,7 @@
 					echo 'Kredensial Diterima (ADMIN)';
 					$_SESSION['admin'] = 'Admin';
 					print_r($_SESSION);
-					header('Location: admin_index.php');
+					header('Location: pages/admin/admin_index.php');
     				die();
 				}
 			}
