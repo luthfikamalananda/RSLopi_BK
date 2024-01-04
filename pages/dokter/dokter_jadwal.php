@@ -1,12 +1,12 @@
-<?php 
-  ob_start();
-  session_start();
-  if (!isset($_SESSION['dokter'])) {
-    header('Location: ../../login.php');
-    die();
-  } else {
-    include('../../includes/dbconn.php');
-  }
+<?php
+ob_start();
+session_start();
+if (!isset($_SESSION['dokter'])) {
+  header('Location: ../../login.php');
+  die();
+} else {
+  include('../../includes/dbconn.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,62 +63,62 @@
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+          <li class="dropdown-header">
+            You have 3 new messages
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>Maria Hudson</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>Anna Nelson</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>6 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>David Muldon</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>8 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
+          <li class="dropdown-footer">
+            <a href="#">Show all messages</a>
+          </li>
 
-          </ul><!-- End Messages Dropdown Items -->
+        </ul><!-- End Messages Dropdown Items -->
 
         </li><!-- End Messages Nav -->
 
@@ -126,7 +126,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['dokter']?></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['dokter'] ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -206,12 +206,12 @@
   <main id="main" class="main">
 
 
-  <?php
-  $id_dokter = $_SESSION['id_dokter'];
-  $sqlRead = "SELECT id, hari, jam_mulai, jam_selesai FROM jadwal_periksa WHERE id_dokter=$id_dokter";
-  $result = $connect->query($sqlRead);
-  ?>
-  
+    <?php
+    $id_dokter = $_SESSION['id_dokter'];
+    $sqlRead = "SELECT id, hari, jam_mulai, jam_selesai FROM jadwal_periksa WHERE id_dokter=$id_dokter";
+    $result = $connect->query($sqlRead);
+    ?>
+
     <div class="pagetitle">
       <h1>Jadwal</h1>
       <nav>
@@ -231,92 +231,92 @@
 
             <!-- Sales Card -->
             <div class="col-xxl-4 col-md-12">
-            <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Jadwal</h5>
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Jadwal</h5>
 
-              <!-- Floating Labels Form -->
-              <form class="row g-3" action="dokter_jadwal.php" method="POST" name="formJadwal">
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" placeholder="NoRM" name="noRM" value="<?php echo 'Dokter '. $_SESSION['dokter']?>" disabled>
-                    <label for="floatingName">Nama Dokter</label>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="State" name="hari_input">
-                      <option selected disabled>Pilih Hari</option>
-                      <option value="Senin">Senin</option>
-                      <option value="Selasa">Selasa</option>
-                      <option value="Rabu">Rabu</option>
-                      <option value="Kamis">Kamis</option>
-                      <option value="Jumat">Jumat</option>
-                      <option value="Sabtu">Sabtu</option>
-                    </select>
-                    <label for="floatingSelect">Tentukan Hari</label>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <input type="time" class="form-control" id="floatingTimeStart" placeholder="Waktu Mulai" name="time_start">
-                    <label for="floatingName">Jam Mulai</label>
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-floating">
-                    <input type="time" class="form-control" id="floatingTimeEnd" placeholder="Waktu Selesai" name="time_end">
-                    <label for="floatingName">Jam Selesai</label>
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="reset" class="btn btn-secondary">Reset</button>
-                  <button type="submit" class="btn btn-primary" name="btnSubmit">Submit</button>
-                </div>
-              </form><!-- End floating Labels Form -->
+                  <!-- Floating Labels Form -->
+                  <form class="row g-3" action="dokter_jadwal.php" method="POST" name="formJadwal">
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingName" placeholder="NoRM" name="noRM" value="<?php echo 'Dokter ' . $_SESSION['dokter'] ?>" disabled>
+                        <label for="floatingName">Nama Dokter</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <select class="form-select" id="floatingSelect" aria-label="State" name="hari_input">
+                          <option selected disabled>Pilih Hari</option>
+                          <option value="Senin">Senin</option>
+                          <option value="Selasa">Selasa</option>
+                          <option value="Rabu">Rabu</option>
+                          <option value="Kamis">Kamis</option>
+                          <option value="Jumat">Jumat</option>
+                          <option value="Sabtu">Sabtu</option>
+                        </select>
+                        <label for="floatingSelect">Tentukan Hari</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="time" class="form-control" id="floatingTimeStart" placeholder="Waktu Mulai" name="time_start">
+                        <label for="floatingName">Jam Mulai</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="time" class="form-control" id="floatingTimeEnd" placeholder="Waktu Selesai" name="time_end">
+                        <label for="floatingName">Jam Selesai</label>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="reset" class="btn btn-secondary">Reset</button>
+                      <button type="submit" class="btn btn-primary" name="btnSubmit">Submit</button>
+                    </div>
+                  </form><!-- End floating Labels Form -->
 
-            </div>
-          </div>
+                </div>
+              </div>
             </div><!-- End Sales Card -->
 
             <!-- Revenue Card -->
             <div class="col-xxl-8 col-md-6">
-            <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Default Table</h5>
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Default Table</h5>
 
-              <!-- Default Table -->
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Hari</th>
-                    <th scope="col">Jam Mulai</th>
-                    <th scope="col">Jam Selesai</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <?php
+                  <!-- Default Table -->
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Hari</th>
+                        <th scope="col">Jam Mulai</th>
+                        <th scope="col">Jam Selesai</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
                       $counter = 1;
-                      while ($row = $result -> fetch_assoc()) {
+                      while ($row = $result->fetch_assoc()) {
                         echo '<tr>
-                        <th scope="row">'.$counter.'</th>
-                        <td>'.$row['hari'].'</td>
-                        <td>'.$row['jam_mulai'].'</td>
-                        <td>'.$row['jam_selesai'].'</td>
-                        <td><a type="submit" class="btn btn-primary rounded-pill btn-sm" value="'.$row['id'].'" id="btnEdit" href="admin_obat_edit.php?id='.$row['id'].'">Edit</a> 
-                        <a type="submit" class="btn btn-danger rounded-pill btn-sm" value="'.$row['id'].'" id="btnDelete" href="../../functions/deleteJadwal.php?id='.$row['id'].'">Hapus</a>
+                        <th scope="row">' . $counter . '</th>
+                        <td>' . $row['hari'] . '</td>
+                        <td>' . $row['jam_mulai'] . '</td>
+                        <td>' . $row['jam_selesai'] . '</td>
+                        <td><a type="submit" HARI='. $row['hari'] .' JMMULAI='. $row['jam_mulai'] .' JMSELESAI='. $row['jam_selesai'] .' id_jadwal='. $row['id'] .' class="btn btn-primary rounded-pill btn-sm" value="' . $row['id'] . '" id="btnEdit" href="admin_obat_edit.php?id=' . $row['id'] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">Edit</a> 
+                        <a type="submit" class="btn btn-danger rounded-pill btn-sm" value="' . $row['id'] . '" id="btnDelete" href="../../functions/deleteJadwal.php?id=' . $row['id'] . '">Hapus</a>
                         </tr>';
                         $counter = $counter + 1;
                       }
-                    ?>
+                      ?>
 
-                </tbody>
-              </table>
-              <!-- End Default Table Example -->
-            </div>
-          </div>
+                    </tbody>
+                  </table>
+                  <!-- End Default Table Example -->
+                </div>
+              </div>
 
             </div><!-- End Revenue Card -->
           </div>
@@ -325,26 +325,99 @@
       </div>
     </section>
 
+    <!-- Vertically centered Modal -->
+    <div class="modal fade" id="verticalycentered" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Jadwal</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <form class="row g-3" action="" method="POST" name="formJadwalEdit" id="formJadwalEdit">
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingName" placeholder="NoRM" name="noRM" value="<?php echo 'Dokter ' . $_SESSION['dokter'] ?>" disabled>
+                        <label for="floatingName">Nama Dokter</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <select class="form-select" id="floatingHari" aria-label="State" name="hari_input">
+                          <option selected disabled>Pilih Hari</option>
+                          <option value="Senin">Senin</option>
+                          <option value="Selasa">Selasa</option>
+                          <option value="Rabu">Rabu</option>
+                          <option value="Kamis">Kamis</option>
+                          <option value="Jumat">Jumat</option>
+                          <option value="Sabtu">Sabtu</option>
+                        </select>
+                        <label for="floatingHari">Tentukan Hari</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="time" class="form-control" id="floatingTimeStartEdit" placeholder="Waktu Mulai" name="time_start">
+                        <label for="floatingName">Jam Mulai</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="time" class="form-control" id="floatingTimeEndEdit" placeholder="Waktu Selesai" name="time_end">
+                        <label for="floatingName">Jam Selesai</label>
+                      </div>
+                    </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="btnEdit">Save changes</button>
+          </div>
+        </div>
+      </div>
+      </form><!-- End floating Labels Form -->
+    </div><!-- End Vertically centered Modal-->
+
     <?php
-  if (isset($_POST['btnSubmit'])) {
-    $hari = $_POST['hari_input'];
-    $jam_mulai = $_POST['time_start'];
-    $jam_selesai = $_POST['time_end'];
+    if (isset($_POST['btnSubmit'])) {
+      $hari = $_POST['hari_input'];
+      $jam_mulai = $_POST['time_start'];
+      $jam_selesai = $_POST['time_end'];
 
-    $sql = "INSERT jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai) VALUES ('$id_dokter', '$hari', '$jam_mulai', '$jam_selesai')";
+      $sql = "INSERT jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai) VALUES ('$id_dokter', '$hari', '$jam_mulai', '$jam_selesai')";
 
-    if ($connect->query($sql) === TRUE) {
-      echo "Record added successfully";
-      
-    } else {
+      if ($connect->query($sql) === TRUE) {
+        echo "Record added successfully";
+      } else {
         echo "Error adding record: " . $connect->error;
+      }
+      header('Location: dokter_jadwal.php');
+      $connect->close();
     }
-    header('Location: dokter_jadwal.php');
-    $connect->close();
-    }
-  ?>
+    ?>
 
   </main><!-- End #main -->
+
+  <script>
+    const btnEdit = document.querySelectorAll('#btnEdit');
+    btnEdit.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const hari = btn.getAttribute('HARI');
+        const jmmulai = btn.getAttribute('JMMULAI');
+        const jmselesai = btn.getAttribute('JMSELESAI');
+        const id = btn.getAttribute('id_jadwal');
+
+        document.getElementById('formJadwalEdit').setAttribute('action', `../../functions/editJadwal.php?id=${id}`)
+
+        console.log(hari, jmmulai, jmselesai, id);
+
+        document.getElementById('floatingHari').value = hari;
+        document.getElementById('floatingTimeStartEdit').value = jmmulai;
+        document.getElementById('floatingTimeEndEdit').value = jmselesai;
+      })
+    });
+
+  </script>
+
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
