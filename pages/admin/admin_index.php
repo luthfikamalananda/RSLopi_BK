@@ -4,7 +4,7 @@
     header('Location: login.php');
     die();
   } else {
-    include('includes/dbconn.php');
+    include('../../includes/dbconn.php');
   }
 ?>
 <!DOCTYPE html>

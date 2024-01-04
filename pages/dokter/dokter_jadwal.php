@@ -177,7 +177,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dokter_index.php">
+        <a class="nav-link collapsed" href="dokter_index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -194,7 +194,7 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="dokter_jadwal.php">
+        <a class="nav-link " href="dokter_jadwal.php">
           <i class="ri-calendar-event-fill"></i><span>Jadwal</span></a>
       </li><!-- End Forms Nav -->
 

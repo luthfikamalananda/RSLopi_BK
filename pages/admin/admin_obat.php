@@ -4,7 +4,7 @@
     header('Location: login.php');
     die();
   } else {
-    include('includes/dbconn.php');
+    include('../../includes/dbconn.php');
   }
 ?>
 <!DOCTYPE html>
@@ -197,49 +197,150 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Edit Obat</h1>
+      <h1>Obat</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="admin_index.php">Home</a></li>
-          <li class="breadcrumb-item active">Edit Obat</li>
+          <li class="breadcrumb-item active">Obat</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    <?php
-        $id = $_GET['id'];
 
-        $sql = "SELECT * FROM obat WHERE id=$id";
-        $result = $connect->query($sql);
-        while($row = $result->fetch_assoc()) {
-        $id = $row['id'];
-        $nama_obat = $row['nama_obat'];
-        $kemasan = $row['kemasan'];
-        $harga = $row['harga'];
-        echo '
-         <form class="row g-3" method="post" action="functions/editObat.php?id='.$id.'">
-                <div class="col-12">
-                  <label for="inputNanme4" class="form-label">Nama Obat</label>
-                  <input type="text" class="form-control" name="nama_obat" value="'.$row['nama_obat'].'">
-                </div>
-                <div class="col-12">
-                  <label for="inputEmail4" class="form-label">Kemasan</label>
-                  <input type="text" class="form-control" name="kemasan" value="'.$row['kemasan'].'">
-                </div>
-                <div class="col-12">
-                  <label for="inputPassword4" class="form-label">Harga</label>
-                  <input type="number" class="form-control" name="harga" value="'.$row['harga'].'">
-                </div>
-                <div class="text-center">
-                  <button type="reset" class="btn btn-secondary">Kembali</button>
-                  <button type="submit" class="btn btn-primary">Edit</button>
-                </div>
-              </form>
-              ';
-            }?>
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
 
-          
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Data Obat RS Lopi</h5>
+              <p>Berikut adalah data dari keseluruhan obat yang ada pada RS Lopi</p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable table-striped table-hover">
+              <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama Obat</th>
+                    <th scope="col">Kemasan</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr>
+                    <th scope="row">1</th>
+                    <td>Brandon Jacob</td>
+                    <td>Designer</td>
+                    <td>28</td>
+                    <td>2016-05-25</td>
+                  </tr> -->
+                  <?php
+                    $sql = "SELECT * FROM obat";
+                    $result = $connect->query($sql);
+                    $counter = 1;
+                    while($row = $result->fetch_assoc()) {
+                      $id = $row['id'];
+                      $nama_obat = $row['nama_obat'];
+                      $kemasan = $row['kemasan'];
+                      $harga = $row['harga'];
+                      echo '<tr>
+                      <th scope="row">'.$counter.'</th>
+                      <td>'.$nama_obat.'</td>
+                      <td>'.$kemasan.'</td>
+                      <td>Rp '.number_format("$harga", 2, ",", ".").'</td>
+                      <td><a type="submit" class="btn btn-primary rounded-pill btn-sm" value="'.$id.'" id="btnEdit" namaObat="'.$nama_obat.'" 
+                      kemasan="'.$kemasan.'" harga="'.$harga.'" href="admin_obat_edit.php?id='.$id.'">Edit</a> 
+                      <button type="submit" class="btn btn-danger rounded-pill btn-sm" value="'.$id.'" id="btnDelete" onclick="delFunc('.$id.')">Hapus</button>
+                      <a class="btn btn-success rounded-pill btn-sm" namaObat="'.$nama_obat.'" kemasan="'.$kemasan.'" harga="'.$harga.'" id="btnTest">TEST</a></td>
+                      </tr>';
+                      $counter = $counter + 1;
+                    }
+                  ?>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ADD MODALS -->
+              <!-- Vertically centered Modal -->
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered" style="margin-top: -30px;">
+                Tambah Obat
+              </button>
+              <div class="modal fade" id="verticalycentered" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Tambah Obat Baru</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- Vertical Form -->
+              <form class="row g-3" action="functions/addObat.php" method='post'>
+                <div class="col-12">
+                  <label for="Nama Obat" class="form-label">Nama Obat</label>
+                  <input type="text" class="form-control" name="namaObat" autocomplete="off">
+                </div>
+                <div class="col-12">
+                  <label for="Kemasan" class="form-label">Kemasan</label>
+                  <input type="text" class="form-control" name="kemasan" autocomplete="off">
+                </div>
+                <div class="col-12">
+                  <label for="Harga" class="form-label">Harga</label>
+                  <input type="number" class="form-control" name="harga" autocomplete="off">
+                </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Tambah</button>
+                      </form><!-- Vertical Form -->
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+              
+              <!-- EDIT MODAL Discontinued, nanti coba edit dibuat modal daripada beda page-->
+              <div class="modal fade" id="verticalycenteredEDIT" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Edit Obat</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- Vertical Form -->
+              <form class="row g-3" action="functions/addObat.php" method='post'>
+                <div class="col-12">
+                  <label for="Nama Obat" class="form-label">Nama Obat</label>
+                  <input type="text" class="form-control" name="namaObat" autocomplete="off" id="namaObatEDIT">
+                </div>
+                <div class="col-12">
+                  <label for="Kemasan" class="form-label">Kemasan</label>
+                  <input type="text" class="form-control" name="kemasan" autocomplete="off" id="kemasanEDIT">
+                </div>
+                <div class="col-12">
+                  <label for="Harga" class="form-label">Harga</label>
+                  <input type="number" class="form-control" name="harga" autocomplete="off" id="hargaEDIT">
+                </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary">Tambah</button>
+                      </form><!-- Vertical Form -->
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
 
     </section>
+
+    
 
   </main><!-- End #main -->
 
@@ -268,6 +369,9 @@
       // hargaEDIT.value = hargaValue;
       kemasanEDIT.value = x;
     }
+
+    
+
 
   </script>
 
@@ -300,6 +404,20 @@
   <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
 
+  <script>
+      const btnsTEST = document.querySelectorAll('#btnTest');
+      btnsTEST.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          console.log(btn);
+          let namaObat = btn.getAttribute('namaobat')
+          let kemasan = btn.getAttribute('kemasan')
+          let harga = btn.getAttribute('harga')
+          console.log(namaObat, kemasan, harga);
+        })
+      });
+</script>
 </body>
+
+
 
 </html>
