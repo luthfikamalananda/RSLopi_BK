@@ -255,8 +255,7 @@
                       <td>Rp '.number_format("$harga", 2, ",", ".").'</td>
                       <td><a type="submit" class="btn btn-primary rounded-pill btn-sm" value="'.$id.'" id="btnEdit" namaObat="'.$nama_obat.'" 
                       kemasan="'.$kemasan.'" harga="'.$harga.'" href="admin_obat_edit.php?id='.$id.'">Edit</a> 
-                      <button type="submit" class="btn btn-danger rounded-pill btn-sm" value="'.$id.'" id="btnDelete" onclick="delFunc('.$id.')">Hapus</button>
-                      <a class="btn btn-success rounded-pill btn-sm" namaObat="'.$nama_obat.'" kemasan="'.$kemasan.'" harga="'.$harga.'" id="btnTest">TEST</a></td>
+                      <button type="submit" class="btn btn-danger rounded-pill btn-sm" value="'.$id.'" id="btnDelete" onclick="delFunc('.$id.')">Hapus</button></td>
                       </tr>';
                       $counter = $counter + 1;
                     }
