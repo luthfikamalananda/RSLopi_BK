@@ -1,11 +1,11 @@
-<?php 
-  session_start();
-  if (!isset($_SESSION['dokter'])) {
-    header('Location: login.php');
-    die();
-  } else {
-    include('../../includes/dbconn.php');
-  }
+<?php
+session_start();
+if (!isset($_SESSION['dokter'])) {
+  header('Location: login.php');
+  die();
+} else {
+  include('../../includes/dbconn.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,62 +62,62 @@
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+          <li class="dropdown-header">
+            You have 3 new messages
+            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-1.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>Maria Hudson</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-2.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>Anna Nelson</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>6 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <li class="message-item">
+            <a href="#">
+              <img src="../../assets/img/messages-3.jpg" alt="" class="rounded-circle">
+              <div>
+                <h4>David Muldon</h4>
+                <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                <p>8 hrs. ago</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
 
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
+          <li class="dropdown-footer">
+            <a href="#">Show all messages</a>
+          </li>
 
-          </ul><!-- End Messages Dropdown Items -->
+        </ul><!-- End Messages Dropdown Items -->
 
         </li><!-- End Messages Nav -->
 
@@ -125,7 +125,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['dokter']?></span>
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['dokter'] ?></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -225,7 +225,7 @@
 
               <!-- Table with stripped rows -->
               <table class="table datatable table-striped table-hover">
-              <thead>
+                <thead>
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nama Pasien</th>
@@ -237,35 +237,28 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr> -->
                   <?php
-                    $sql = "SELECT * FROM pasien";
-                    $result = $connect->query($sql);
-                    $counter = 1;
-                    while($row = $result->fetch_assoc()) {
-                      $id = $row['id'];
-                      $nama = $row['nama'];
-                      $alamat = $row['alamat'];
-                      $no_hp = $row['no_hp'];
-                      $no_ktp = $row['no_ktp'];
-                      $no_rm = $row['no_rm'];
-                      echo '<tr>
-                      <th scope="row">'.$counter.'</th>
-                      <td>'.$nama.'</td>
-                      <td>'.$alamat.'</td>
-                      <td>'.$no_ktp.'</td>
-                      <td>'.$no_hp.'</td>
-                      <td>'.$no_rm.'</td>
-                      <td><a>Lihat</a></td>
+                  $sql = "SELECT * FROM pasien";
+                  $result = $connect->query($sql);
+                  $counter = 1;
+                  while ($row = $result->fetch_assoc()) {
+                    $id = $row['id'];
+                    $nama = $row['nama'];
+                    $alamat = $row['alamat'];
+                    $no_hp = $row['no_hp'];
+                    $no_ktp = $row['no_ktp'];
+                    $no_rm = $row['no_rm'];
+                    echo '<tr>
+                      <th scope="row">' . $counter . '</th>
+                      <td>' . $nama . '</td>
+                      <td>' . $alamat . '</td>
+                      <td>' . $no_ktp . '</td>
+                      <td>' . $no_hp . '</td>
+                      <td>' . $no_rm . '</td>
+                      <td><a class="btn btn-success rounded-pill btn-sm" data-bs-toggle="modal" data-bs-target="#verticalycentered" value="' . $id . '">Lihat</a></td>
                       </tr>';
-                      $counter = $counter + 1;
-                    }
+                    $counter = $counter + 1;
+                  }
                   ?>
                   </tr>
                 </tbody>
@@ -280,6 +273,60 @@
 
 
     </section>
+
+    <!-- PERIKSA MODALS -->
+    <!-- Vertically centered Modal -->
+    <div class="modal fade" id="verticalycentered" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Periksa Pasien</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Vertical Form (ADD PERIKSA)-->
+            <table class="table datatable table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Tanggal Periksa</th>
+                    <th scope="col">Nama Pasien</th>
+                    <th scope="col">Keluhan</th>
+                    <th scope="col">No. KTP</th>
+                    <th scope="col">Catatan</th>
+                    <th scope="col">Biaya Periksa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $sql = "SELECT periksa.tgl_periksa, pasien.nama, daftar_poli.keluhan, periksa.catatan, periksa.biaya_periksa FROM pasien INNER JOIN daftar_poli ON pasien.id = daftar_poli.id_pasien INNER JOIN jadwal_periksa ON jadwal_periksa.id = daftar_poli.id_jadwal INNER JOIN periksa ON periksa.id_daftar_poli = daftar_poli.id";
+                  $result = $connect->query($sql);
+                  $counter = 1;
+                  while ($row = $result->fetch_assoc()) {
+                    $tgl_periksa = $row['tgl_periksa'];
+                    $nama = $row['nama'];
+                    $keluhan = $row['keluhan'];
+                    $catatan = $row['catatan'];
+                    $biaya_periksa = $row['biaya_periksa'];
+                    echo '<tr>
+                      <th scope="row">' . $tgl_periksa . '</th>
+                      <td>' . $nama . '</td>
+                      <td>' . $keluhan . '</td>
+                      <td>' . $no_ktp . '</td>
+                      <td>' . $catatan . '</td>
+                      <td>' . $biaya_periksa . '</td>
+                      </tr>';
+                    $counter = $counter + 1;
+                  }
+                  ?>
+                  </tr>
+                </tbody>
+              </table>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- End Vertically centered Modal-->
 
   </main><!-- End #main -->
 

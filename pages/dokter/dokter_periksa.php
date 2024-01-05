@@ -233,7 +233,7 @@ if (!isset($_SESSION['dokter'])) {
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Pasien Dokter <?php echo $_SESSION['dokter'] ?></h5>
+              <h5 class="card-title">Data Pasien yang Harus Diperiksa Dokter <?php echo $_SESSION['dokter'] ?></h5>
               <p>Berikut adalah data dari keseluruhan pasien yang menjadwalkan periksa dengan Dokter <?php echo $_SESSION['dokter'] ?> </p>
 
               <!-- Table with stripped rows -->
@@ -288,6 +288,17 @@ if (!isset($_SESSION['dokter'])) {
               </table>
               <!-- End Table with stripped rows -->
 
+             
+
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Data Pasien yang Sudah Diperiksa Dokter <?php echo $_SESSION['dokter'] ?></h5>
+              <p>Berikut adalah data dari keseluruhan pasien yang menjadwalkan periksa dengan Dokter <?php echo $_SESSION['dokter'] ?> </p>
+
+              <!-- Table with stripped rows -->
               <table class="table datatable table-striped table-hover">
                 <thead>
                   <tr>
@@ -337,6 +348,9 @@ if (!isset($_SESSION['dokter'])) {
                   </tr>
                 </tbody>
               </table>
+              <!-- End Table with stripped rows -->
+
+             
 
             </div>
           </div>
