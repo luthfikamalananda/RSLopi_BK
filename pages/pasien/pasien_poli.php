@@ -304,7 +304,7 @@ if (isset($_SESSION['pasien'])) {
                         <td>".$row['jam_mulai']."</td>
                         <td>".$row['jam_selesai']."</td>
                         <td align='center'>".$row['no_antrian']."</td>
-                        <td><a href='../../functions/deletePoli.php?id=".$row['id']."' class='btn btn-danger rounded-pill btn-sm' value='".$row['id']."' id='btnDelete'>Hapus</a></td>
+                        <td><a href='../../functions/deleteDaftarPoli.php?id=".$row['id']."' class='btn btn-danger rounded-pill btn-sm' value='".$row['id']."' id='btnDelete'>Hapus</a></td>
                           </tr>";
                           $counter = $counter + 1;
                       }

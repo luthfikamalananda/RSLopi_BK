@@ -202,119 +202,46 @@ if (!isset($_SESSION['admin'])) {
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Obat</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="admin_index.php">Home</a></li>
-          <li class="breadcrumb-item active">Poli</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+<div class="pagetitle">
+  <h1>Edit Poli</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="admin_index.php">Home</a></li>
+      <li class="breadcrumb-item active">Edit Poli</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
+<?php
+    $id = $_GET['id'];
 
-    <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Data Poli RS Lopi</h5>
-              <p>Berikut adalah data dari keseluruhan Poli yang ada pada RS Lopi</p>
-
-              <!-- Table with stripped rows -->
-              <table class="table datatable table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Poli</th>
-                    <th scope="col">Keterangan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $sql = "SELECT * FROM poli";
-                  $result = $connect->query($sql);
-                  $counter = 1;
-                  while ($row = $result->fetch_assoc()) {
-                    $id = $row['id'];
-                    $nama_poli = $row['nama_poli'];
-                    $keterangan = $row['keterangan'];
-                    echo '<tr>
-                      <th scope="row">' . $counter . '</th>
-                      <td>' . $nama_poli . '</td>
-                      <td>' . $keterangan . '</td>
-                      <td><a type="submit" class="btn btn-primary rounded-pill btn-sm" value="' . $id . '" id="btnEdit" namaPoli="' . $nama_poli . '" 
-                      keterangan="' . $keterangan . '" href="admin_poli_edit.php?id=' . $id . '">Edit</a> 
-                      <button type="submit" class="btn btn-danger rounded-pill btn-sm" value="' . $id . '" id="btnDelete" onclick="delFunc(' . $id . ')">Hapus</button>
-                      </tr>';
-                    $counter = $counter + 1;
-                  }
-                  ?>
-                </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
-
+    $sql = "SELECT * FROM poli WHERE id=$id";
+    $result = $connect->query($sql);
+    while($row = $result->fetch_assoc()) {
+    $id = $row['id'];
+    $nama_poli = $row['nama_poli'];
+    $keterangan = $row['keterangan'];
+    echo '
+     <form class="row g-3" method="post" action="../../functions/editPoli.php?id='.$id.'">
+            <div class="col-12">
+              <label for="inputNanme4" class="form-label">Nama Poli</label>
+              <input type="text" class="form-control" name="nama_poli" value="'.$row['nama_poli'].'">
             </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ADD MODALS -->
-      <!-- Vertically centered Modal -->
-      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered" style="margin-top: -30px;">
-        Tambah Poli
-      </button>
-      <div class="modal fade" id="verticalycentered" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Tambah Poli Baru</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="col-12">
+              <label for="inputEmail4" class="form-label">Keterangan</label>
+              <input type="text" class="form-control" name="keterangan" value="'.$row['keterangan'].'">
             </div>
-            <div class="modal-body">
-              <!-- Vertical Form -->
-              <form class="row g-3" action="admin_poli.php" method='post'>
-                <div class="col-12">
-                  <label for="Nama Poli" class="form-label">Nama Poli</label>
-                  <input type="text" class="form-control" name="namaPoli" autocomplete="off" required>
-                </div>
-                <div class="col-12">
-                  <label for="Keterangan" class="form-label">Keterangan</label>
-                  <textarea type="text" class="form-control" name="keterangan" autocomplete="off" required></textarea>
-                </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Edit</button>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-              <button type="submit" class="btn btn-primary" name="btnTambah">Tambah</button>
-              </form><!-- Vertical Form -->
-            </div>
-          </div>
-        </div>
-      </div><!-- End Vertically centered Modal-->
+          </form>
+          ';
+        }?>
 
-      <?php
-      if (isset($_POST['btnTambah'])) {
-        $nama_poli = $_POST['namaPoli'];
-        $keterangan = $_POST['keterangan'];
-        $tambahDataQuery = "INSERT INTO poli(nama_poli,keterangan) VALUES ('$nama_poli','$keterangan')";
+      
 
-        if ($connect->query($tambahDataQuery) === TRUE) {
-          echo "Record added successfully";
-        } else {
-          echo "Error adding record: " . $connect->error;
-        }
+</section>
 
-        header('Location: admin_poli.php');
-      }
-      ?>
-
-
-    </section>
-
-
-
-  </main><!-- End #main -->
+</main><!-- End #main -->
 
   <script>
     const btnsDelete = document.querySelectorAll('#btnDelete');
