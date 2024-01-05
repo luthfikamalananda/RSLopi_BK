@@ -38,6 +38,7 @@
 					<div class="form-group">
 		      			<input type="number" class="form-control rounded-left" placeholder="No. Telepon" name="NoTelepon" autocomplete="off" required>
 		      		</div>
+					  <textarea class="form-control" placeholder="Alamat" id="alamat" style="height: 100px;" name="alamat" required></textarea>
 	            <div class="form-group d-md-flex">
 	            	<div class="w-50">
 								</div>
@@ -62,6 +63,7 @@ if (isset($_POST['btnRegister'])) {
 	$nama = $_POST['NamaLengkap'];
 	$noktp = $_POST['NoKTP'];
 	$notelp = $_POST['NoTelepon'];
+	$alamat = $_POST['alamat'];
 
 	$sqlCheckAmount = 'SELECT * FROM pasien';
 	$resultAmount = $connect->query($sqlCheckAmount);
@@ -69,7 +71,7 @@ if (isset($_POST['btnRegister'])) {
 
 	$no_rm = date("Y").date("m").'-'.$total_data+1;
 				
-	$sql = "INSERT INTO pasien (nama, no_ktp, no_hp, no_rm) VALUES ('$nama','$noktp','$notelp','$no_rm')";
+	$sql = "INSERT INTO pasien (nama, alamat, no_ktp, no_hp, no_rm) VALUES ('$nama', '$alamat','$noktp','$notelp','$no_rm')";
 	if ($connect->query($sql) === TRUE) {
 	"New record created successfully";
 	header('Location: ../login-pasien.php');

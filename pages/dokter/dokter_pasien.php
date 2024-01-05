@@ -185,7 +185,7 @@
 
       <li class="nav-item">
         <a class="nav-link" href="dokter_pasien.php">
-          <i class="bi bi-journal-text"></i><span>Daftar Pasien</span></a>
+          <i class="bi bi-journal-text"></i><span>Riwayat Pasien</span></a>
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
@@ -205,11 +205,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Daftar Pasien</h1>
+      <h1>Riwayat Pasien</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="dokter_index.php">Home</a></li>
-          <li class="breadcrumb-item active">Daftar Pasien</li>
+          <li class="breadcrumb-item active">Riwayat Pasien</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -229,6 +229,7 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nama Pasien</th>
+                    <th scope="col">Alamat</th>
                     <th scope="col">No. KTP</th>
                     <th scope="col">No. HP</th>
                     <th scope="col">No. RM</th>
@@ -249,12 +250,14 @@
                     while($row = $result->fetch_assoc()) {
                       $id = $row['id'];
                       $nama = $row['nama'];
+                      $alamat = $row['alamat'];
                       $no_hp = $row['no_hp'];
                       $no_ktp = $row['no_ktp'];
                       $no_rm = $row['no_rm'];
                       echo '<tr>
                       <th scope="row">'.$counter.'</th>
                       <td>'.$nama.'</td>
+                      <td>'.$alamat.'</td>
                       <td>'.$no_ktp.'</td>
                       <td>'.$no_hp.'</td>
                       <td>'.$no_rm.'</td>

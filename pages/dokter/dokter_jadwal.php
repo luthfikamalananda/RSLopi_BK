@@ -186,7 +186,7 @@ if (!isset($_SESSION['dokter'])) {
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="dokter_pasien.php">
-          <i class="bi bi-journal-text"></i><span>Daftar Pasien</span></a>
+          <i class="bi bi-journal-text"></i><span>Riwayat Pasien</span></a>
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
