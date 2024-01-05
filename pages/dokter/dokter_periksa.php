@@ -358,7 +358,7 @@ if (!isset($_SESSION['dokter'])) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <!-- Vertical Form -->
+            <!-- Vertical Form (ADD PERIKSA)--> 
             <form class="row g-3" action="" method='post' id="formPeriksa">
               <div class="col-12">
                 <label for="namaPasien" class="form-label">Nama Pasien</label>
@@ -387,6 +387,10 @@ if (!isset($_SESSION['dokter'])) {
               <div class="col-12">
                 <label for="harga" class="form-label">Total Harga</label>
                 <input type="text" class="form-control" name="harga" id="harga" autocomplete="off" readonly>
+              </div>
+              <div class="col-12" >
+                <label for="id_obat" class="form-label">Obat</label>
+                <input type="text" class="form-control" name="id_obat" id="id_obat" autocomplete="off" readonly>
               </div>
 
           </div>
@@ -417,15 +421,17 @@ if (!isset($_SESSION['dokter'])) {
 
         console.log(Stdid);
 
-        var counter = 0
+        var counter = 0;
+        var id_obat = '';
         Stdid.forEach(element => {
           console.log(element);
           var elementArr = element.split('|');
-          var id = elementArr[0];
+          id_obat = elementArr[0] + '|' + id_obat;
           var harga = parseInt(elementArr[1]);
           counter = counter + harga;
         });
 
+        document.getElementById('id_obat').value = id_obat
         document.getElementById('harga').value = counter
 
       });
