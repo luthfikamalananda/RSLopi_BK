@@ -228,10 +228,13 @@
               <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ID Pasien</th>
-                    <th scope="col">Jadwal</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Hari</th>
                     <th scope="col">Keluhan</th>
-                    <th scope="col">No. Antrian</th>
+                    <th scope="col">Jam Mulai</th>
+                    <th scope="col">Jam Selesai</th>
+                    <th scope="col">Antrian</th>
+                    <th scope="col">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -243,21 +246,26 @@
                     <td>2016-05-25</td>
                   </tr> -->
                   <?php
-                    $sql = "SELECT * FROM daftar_poli";
+                    $id_dokter = $_SESSION['id_dokter'];
+                    $sql = "SELECT pasien.nama, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, daftar_poli.keluhan, daftar_poli.no_antrian FROM dokter INNER JOIN jadwal_periksa ON jadwal_periksa.id_dokter = dokter.id INNER JOIN daftar_poli ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN pasien ON daftar_poli.id_pasien = pasien.id WHERE dokter.id = '$id_dokter'";
                     $result = $connect->query($sql);
                     $counter = 1;
                     while($row = $result->fetch_assoc()) {
-                      $id = $row['id'];
-                      $id_pasien = $row['id_pasien'];
-                      $id_jadwal = $row['id_jadwal'];
+                      $nama = $row['nama'];
+                      $hari = $row['hari'];
+                      $jam_mulai = $row['jam_mulai'];
+                      $jam_selesai = $row['jam_selesai'];
                       $keluhan = $row['keluhan'];
                       $no_antrian = $row['no_antrian'];
                       echo '<tr>
                       <th scope="row">'.$counter.'</th>
-                      <td>'.$id_pasien.'</td>
-                      <td>'.$id_jadwal.'</td>
+                      <td>'.$nama.'</td>
+                      <td>'.$hari.'</td>
                       <td>'.$keluhan.'</td>
+                      <td>'.$jam_mulai.'</td>
+                      <td>'.$jam_selesai.'</td>
                       <td>'.$no_antrian.'</td>
+                      <td><a class="btn btn-danger rounded-pill btn-sm" value="".$row["id"]."" id="btnDelete">Riwayat Pasien</a></td>
                       </tr>';
                       $counter = $counter + 1;
                     }
