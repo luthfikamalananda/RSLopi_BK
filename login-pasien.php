@@ -61,7 +61,7 @@
 			$password = $_POST['password'];
 
 			if (!empty($_POST['nama']) && !empty($_POST['password'])) {
-				$sql = 'SELECT nama, no_ktp, no_rm FROM pasien';
+				$sql = 'SELECT id, nama, no_ktp, no_rm FROM pasien';
 				$result = $connect->query($sql);
 				while($row = $result->fetch_assoc()) {
 					echo $row['nama'];
@@ -70,6 +70,7 @@
 							echo 'Kredensial Diterima';
 							$_SESSION['pasien'] = substr($row["nama"], 0, strpos($row["nama"], ' '));
 							$_SESSION['no_RM'] = $row["no_rm"];
+							$_SESSION['id_pasien'] = $row['id'];
 							header('Location: pages/pasien/pasien_index.php');
     						die();
 						}

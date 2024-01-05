@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 include('../../includes/dbconn.php');
 
@@ -39,6 +40,8 @@ if (isset($_SESSION['pasien'])) {
 
   <!-- Template Main CSS File -->
   <link href="../../assets/css/style.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -159,7 +162,7 @@ if (isset($_SESSION['pasien'])) {
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="functions/logout.php">
+              <a class="dropdown-item d-flex align-items-center" href="../../functions/logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -228,7 +231,7 @@ if (isset($_SESSION['pasien'])) {
                     </div>
                     <div class="col-md-12">
                       <div class="form-floating">
-                        <select class="form-select" id="selectPoli" aria-label="State" name="poliPilihan">
+                        <select class="form-select" id="poliPilihan" aria-label="State" name="poliPilihan" required>
                           <option selected disabled>Buka untuk memilih Poli</option>
                           <?php
                           $sql = "SELECT * FROM poli";
@@ -239,36 +242,26 @@ if (isset($_SESSION['pasien'])) {
 
                           ?>
                         </select>
-                        <label for="selectPoli">Pilih Poli</label>
+                        <label for="poliPilihan">Pilih Poli</label>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-floating">
-                        <select class="form-select" id="selectJadwal" aria-label="State" name="jadwalPilihan">
+                        <select class="form-select" id="jadwalPilihan" aria-label="State" name="jadwalPilihan" required>
                           <option selected disabled>Buka untuk memilih Jadwal</option>
-                          <?php
-                          // $getPoliId = $_GET['id'];
-                          // echo '<script>console.log(' . $getPoliId . ')</script>';
-                          // $sqlJadwal = "SELECT hari, jam_mulai, jam_selesai FROM jadwal_periksa WHERE id_dokter = (SELECT id FROM dokter WHERE id_poli = $getPoliId)";
-                          // $resultJadwal = $connect->query($sqlJadwal);
-                          // while ($row = $resultJadwal->fetch_assoc()) {
-                          //   echo "<option value=" . $row['id'] . ">" . $row['hari'] . " | " . $row['jam_mulai'] . " | " . $row['jam_selesai'] . "</option>";
-                          // };
-
-                          ?>
                         </select>
-                        <label for="selectJadwal">Pilih Jadwal</label>
+                        <label for="jadwalPilihan">Pilih Jadwal</label>
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-floating">
-                        <textarea class="form-control" placeholder="Keluhan" id="floatingTextarea" style="height: 100px;" name="keluhan"></textarea>
-                        <label for="floatingTextarea">Keluhan</label>
+                        <textarea class="form-control" placeholder="keluhan" id="keluhan" style="height: 100px;" name="keluhan" required></textarea>
+                        <label for="keluhan">Keluhan</label>
                       </div>
                     </div>
                     <div class="text-center">
                       <button type="reset" class="btn btn-secondary">Reset</button>
-                      <button type="submit" class="btn btn-primary">Submit</button>
+                      <button type="submit" class="btn btn-primary" name='btnSubmit'>Submit</button>
                     </div>
                   </form><!-- End floating Labels Form -->
 
@@ -298,6 +291,9 @@ if (isset($_SESSION['pasien'])) {
                       </tr>
                     </thead>
                     <tbody>
+                      <?php
+                       $bacaData = "SELECT "
+                      ?>
                       <tr>
                         <!-- <th scope="row">1</th>
                     <td>Brandon Jacob</td>
@@ -313,10 +309,6 @@ if (isset($_SESSION['pasien'])) {
 
             </div><!-- End Revenue Card -->
 
-
-
-
-
           </div>
         </div><!-- End Left side columns -->
 
@@ -325,15 +317,74 @@ if (isset($_SESSION['pasien'])) {
 
   </main><!-- End #main -->
 
+  <!-- DEPENDANT SELECTBOX -->
+  <!-- AJAX SENDING VALUE FROM SELECT BOX TO THE SERVER -->
   <script>
-    const pilihPoli = document.getElementById('selectPoli');
-    pilihPoli.addEventListener('change', () => {
-      console.log('changed');
-      // window.location.href = `pasien_poli.php?id=${pilihPoli.value}`
-      // window.history.replaceState(null, null, `?id=${pilihPoli.value}`);
-      // document.getElementById('selectJadwal').value = null;
-    })
+    $(document).ready(function() {
+      $('#poliPilihan').change(function() {
+        var Stdid = $('#poliPilihan').val();
+        console.log('tes');
+
+        $.ajax({
+          type: 'POST',
+          url: 'pasien_poli.php',
+          data: {
+            id: Stdid
+          },
+          success: function(data) {
+            $('#jadwalPilihan').html(data);
+          }
+        });
+      });
+    });
   </script>
+
+  <!-- FETCHING THE AJAX -->
+  <?php
+  if (isset($_POST['id'])) {
+    $getPoliId = $_POST['id'];
+    $sqlJadwal = "SELECT id, hari, jam_mulai, jam_selesai, id_dokter FROM jadwal_periksa WHERE id_dokter IN (SELECT id FROM dokter WHERE id_poli = $getPoliId)";
+    $result = mysqli_query($connect, $sqlJadwal);
+
+    $out = '';
+    while ($row = mysqli_fetch_assoc($result)) {
+      $out .=  "<option value=" . $row['id'] . ">" . $row['hari'] . " | " . $row['jam_mulai'] . " - " . $row['jam_selesai'] . "</option>";
+    }
+    echo $out;
+  }
+  ?>
+
+  <!-- ADD DATA TO DATABASE -->
+  <?php
+
+  if (isset($_POST['btnSubmit'])) {
+    $keluhan = $_POST['keluhan'];
+    $poli = $_POST['poliPilihan'];
+    $jadwal = $_POST['jadwalPilihan'];
+    $id_pasien = $_SESSION['id_pasien'];
+
+    // Antrian akan bertambah terus
+    $cekAntrian = "SELECT no_antrian FROM daftar_poli WHERE id_jadwal='$jadwal' AND no_antrian != 0";
+    $antrian = $connect -> query($cekAntrian);
+    $antrian = mysqli_num_rows($antrian);
+
+    // Insert user data into table
+    $sql = "INSERT INTO daftar_poli(id_pasien,id_jadwal,keluhan,no_antrian) VALUES('$id_pasien','$jadwal','$keluhan', $antrian+1)";
+
+
+    if ($connect->query($sql) === TRUE) {
+      echo "Record added successfully";
+    } else {
+      echo "Error adding record: " . $connect->error;
+    }
+
+    header('Location: pasien_poli.php');
+    $connect->close();
+  }
+
+  ?>
+
+
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
