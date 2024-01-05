@@ -233,6 +233,7 @@
                     <th scope="col">No. KTP</th>
                     <th scope="col">No. HP</th>
                     <th scope="col">No. RM</th>
+                    <th scope="col">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -261,6 +262,7 @@
                       <td>'.$no_ktp.'</td>
                       <td>'.$no_hp.'</td>
                       <td>'.$no_rm.'</td>
+                      <td><a>Lihat</a></td>
                       </tr>';
                       $counter = $counter + 1;
                     }
