@@ -280,7 +280,6 @@ if (isset($_SESSION['pasien'])) {
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">No.</th>
                         <th scope="col">Poli</th>
                         <th scope="col">Dokter</th>
                         <th scope="col">Hari</th>
@@ -292,15 +291,25 @@ if (isset($_SESSION['pasien'])) {
                     </thead>
                     <tbody>
                       <?php
-                       $bacaData = "SELECT "
+                      $counter = 1;
+                      $id_pasien = $_SESSION['id_pasien'];
+                      $bacaData = "SELECT daftar_poli.id, daftar_poli.id_jadwal, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, dokter.nama, daftar_poli.no_antrian, poli.nama_poli FROM daftar_poli INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE daftar_poli.id_pasien ='$id_pasien'";
+                      $dataPasien = $connect->query($bacaData);
+                      while ($row = $dataPasien->fetch_assoc()) {
+                        echo "<tr>
+                        <th scope='row'>".$counter."</th>
+                        <td>".$row['nama_poli']."</td>
+                        <td>".$row['nama']."</td>
+                        <td>".$row['hari']."</td>
+                        <td>".$row['jam_mulai']."</td>
+                        <td>".$row['jam_selesai']."</td>
+                        <td align='center'>".$row['no_antrian']."</td>
+                        <td><a href='../../functions/deletePoli.php?id=".$row['id']."' class='btn btn-danger rounded-pill btn-sm' value='".$row['id']."' id='btnDelete'>Hapus</a></td>
+                          </tr>";
+                          $counter = $counter + 1;
+                      }
                       ?>
-                      <tr>
-                        <!-- <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td> -->
-                      </tr>
+
                     </tbody>
                   </table>
                   <!-- End Default Table Example -->
@@ -365,7 +374,7 @@ if (isset($_SESSION['pasien'])) {
 
     // Antrian akan bertambah terus
     $cekAntrian = "SELECT no_antrian FROM daftar_poli WHERE id_jadwal='$jadwal' AND no_antrian != 0";
-    $antrian = $connect -> query($cekAntrian);
+    $antrian = $connect->query($cekAntrian);
     $antrian = mysqli_num_rows($antrian);
 
     // Insert user data into table
