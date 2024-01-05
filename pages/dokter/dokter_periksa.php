@@ -308,7 +308,6 @@ if (!isset($_SESSION['dokter'])) {
                     <th scope="col">Keluhan</th>
                     <th scope="col">Jam Mulai</th>
                     <th scope="col">Jam Selesai</th>
-                    <th scope="col">Antrian</th>
                     <th scope="col" align="center">Aksi</th>
                   </tr>
                 </thead>
@@ -339,8 +338,7 @@ if (!isset($_SESSION['dokter'])) {
                       <td>' . $keluhan . '</td>
                       <td>' . $jam_mulai . '</td>
                       <td>' . $jam_selesai . '</td>
-                      <td>' . $no_antrian . '</td>
-                      <td><a class="btn btn-success rounded-pill btn-sm" value="'.$row["id"].'" id="btnPeriksa" nama-pasien="'. $nama .'" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered">EDIT</a></td>
+                      <td><a class="btn btn-success rounded-pill btn-sm" value="'.$row["id"].'" id="btnPeriksa" nama-pasien="'. $nama .'" >SELESAI</a></td>
                       </tr>';
                     $counter2 = $counter2 + 1;
                   }
