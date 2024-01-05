@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Login 08</title>
+  	<title>RS Lopi Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -25,7 +25,7 @@
 		      	<div class="icon d-flex align-items-center justify-content-center">
 		      		<span class="fa fa-user-o"></span>
 		      	</div>
-		      	<h3 class="text-center mb-4">Login Form</h3>
+		      	<h3 class="text-center mb-4">Login Dokter</h3>
 						<form action="login.php" class="login-form" name="loginForm" method="post">
 		      		<div class="form-group">
 		      			<input type="text" class="form-control rounded-left" placeholder="Username" name="username" autocomplete="off" required>
