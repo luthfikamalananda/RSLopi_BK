@@ -221,48 +221,47 @@ if (!isset($_SESSION['dokter'])) {
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Pasien RS Lopi</h5>
-              <p>Berikut adalah data dari keseluruhan pasien yang ada pada RS Lopi</p>
+              <h5 class="card-title">Riwayat Pasien</h5>
+              <?php
+              $id_pasien = $_GET['id'];
+              $sql = "SELECT periksa.tgl_periksa, pasien.nama, daftar_poli.keluhan, periksa.catatan, periksa.biaya_periksa FROM pasien INNER JOIN daftar_poli ON pasien.id = daftar_poli.id_pasien INNER JOIN jadwal_periksa ON jadwal_periksa.id = daftar_poli.id_jadwal INNER JOIN periksa ON periksa.id_daftar_poli = daftar_poli.id WHERE pasien.id = $id_pasien";
+              $result = $connect->query($sql);
+              if ($jumlah = mysqli_num_rows($result) == 0) {
+                echo "<h2>Belum Pernah Periksa</h2>";
+              } else {
+                $counter = 1;
+                echo "<table class='table datatable table-striped table-hover'>
+                    <thead>
+                      <tr>
+                        <th scope='col'>Tanggal Periksa</th>
+                        <th scope='col'>Nama Pasien</th>
+                        <th scope='col'>Keluhan</th>
+                        <th scope='col'>Catatan</th>
+                        <th scope='col'>Biaya</th>
+                        <th scope='col'>No. RM</th>
+                      </tr>
+                    </thead>
+                    <tbody>";
+                while ($row = $result->fetch_assoc()) {
+                  $tgl_periksa = $row['tgl_periksa'];
+                  $nama = $row['nama'];
+                  $keluhan = $row['keluhan'];
+                  $catatan = $row['catatan'];
+                  $biaya_periksa = $row['biaya_periksa'];
+                  echo  '<tr>
+                        <th scope="row">' . $tgl_periksa . '</th>
+                        <td>' . $nama . '</td>
+                        <td>' . $keluhan . '</td>
+                        <td>' . $catatan . '</td>
+                        <td>' . $biaya_periksa . '</td>
+                        </tr>';
+                  $counter = $counter + 1;
+                };
+              }
 
-              <!-- Table with stripped rows -->
-              <table class="table datatable table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Pasien</th>
-                    <th scope="col">Alamat</th>
-                    <th scope="col">No. KTP</th>
-                    <th scope="col">No. HP</th>
-                    <th scope="col">No. RM</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $sql = "SELECT * FROM pasien";
-                  $result = $connect->query($sql);
-                  $counter = 1;
-                  while ($row = $result->fetch_assoc()) {
-                    $id = $row['id'];
-                    $nama = $row['nama'];
-                    $alamat = $row['alamat'];
-                    $no_hp = $row['no_hp'];
-                    $no_ktp = $row['no_ktp'];
-                    $no_rm = $row['no_rm'];
-                    echo '<tr>
-                      <th scope="row">' . $counter . '</th>
-                      <td>' . $nama . '</td>
-                      <td>' . $alamat . '</td>
-                      <td>' . $no_ktp . '</td>
-                      <td>' . $no_hp . '</td>
-                      <td>' . $no_rm . '</td>
-                      <td><a href="dokter_riwayat_pasien.php?id=' . $id . '" class="btn btn-success rounded-pill btn-sm btnLihat" value="' . $id . '" id="btnLihat">Lihat</a></td>
-                      </tr>';
-                    $counter = $counter + 1;
-                  }
-                  ?>
-                  </tr>
-                </tbody>
+              ?>
+              </tr>
+              </tbody>
               </table>
               <!-- End Table with stripped rows -->
 
@@ -273,6 +272,13 @@ if (!isset($_SESSION['dokter'])) {
       </div>
 
     </section>
+
+    <script>
+
+    </script>
+
+
+
 
   </main><!-- End #main -->
 
