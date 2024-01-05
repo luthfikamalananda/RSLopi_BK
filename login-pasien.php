@@ -85,6 +85,15 @@
 
 			}
 
+			// Admin
+			if ($username == 'admin' && $password == 'admin') {
+				echo 'Kredensial Diterima (ADMIN)';
+				$_SESSION['admin'] = 'Admin';
+				print_r($_SESSION);
+				header('Location: pages/admin/admin_index.php');
+				die();
+			}
+
 		}
 	?>
 
