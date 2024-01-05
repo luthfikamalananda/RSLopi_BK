@@ -238,7 +238,6 @@ if (!isset($_SESSION['dokter'])) {
                         <th scope='col'>Keluhan</th>
                         <th scope='col'>Catatan</th>
                         <th scope='col'>Biaya</th>
-                        <th scope='col'>No. RM</th>
                       </tr>
                     </thead>
                     <tbody>";
