@@ -188,6 +188,11 @@
           <i class="bi bi-journal-text"></i><span>Obat</span></a>
       </li><!-- End Forms Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="admin_poli.php">
+          <i class="bi bi-journal-text"></i><span>Poli</span></a>
+      </li><!-- End Forms Nav -->
+
     </ul>
 
   </aside><!-- End Sidebar-->
