@@ -193,6 +193,11 @@
           <i class="bi bi-journal-text"></i><span>Poli</span></a>
       </li><!-- End Forms Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="admin_dokter.php">
+          <i class="bi bi-journal-text"></i><span>Dokter</span></a>
+      </li><!-- End Forms Nav -->
+
     </ul>
 
   </aside><!-- End Sidebar-->

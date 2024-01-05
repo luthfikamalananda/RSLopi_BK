@@ -190,15 +190,14 @@ if (!isset($_SESSION['admin'])) {
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="admin_poli.php">
+        <a class="nav-link collapsed" href="admin_poli.php">
           <i class="bi bi-journal-text"></i><span>Poli</span></a>
       </li><!-- End Forms Nav -->
-
+      
       <li class="nav-item">
-        <a class="nav-link collapsed" href="admin_dokter.php">
+        <a class="nav-link" href="admin_dokter.php">
           <i class="bi bi-journal-text"></i><span>Dokter</span></a>
       </li><!-- End Forms Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -207,53 +206,151 @@ if (!isset($_SESSION['admin'])) {
 
   <main id="main" class="main">
 
-<div class="pagetitle">
-  <h1>Edit Poli</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="admin_index.php">Home</a></li>
-      <li class="breadcrumb-item active">Edit Poli</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
-<?php
-    $id = $_GET['id'];
+    <div class="pagetitle">
+      <h1>Obat</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="admin_index.php">Home</a></li>
+          <li class="breadcrumb-item active">Poli</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
 
-    $sql = "SELECT * FROM poli WHERE id=$id";
-    $result = $connect->query($sql);
-    while($row = $result->fetch_assoc()) {
-    $id = $row['id'];
-    $nama_poli = $row['nama_poli'];
-    $keterangan = $row['keterangan'];
-    echo '
-     <form class="row g-3" method="post" action="../../functions/editPoli.php?id='.$id.'">
-            <div class="col-12">
-              <label for="inputNanme4" class="form-label">Nama Poli</label>
-              <input type="text" class="form-control" name="nama_poli" value="'.$row['nama_poli'].'">
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Data Dokter RS Lopi</h5>
+              <p>Berikut adalah data dari keseluruhan Dokter yang ada pada RS Lopi</p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama Dokter</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">Nomor HP</th>
+                    <th scope="col">Poli</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $sql = "SELECT dokter.id, dokter.alamat, dokter.nama, dokter.no_hp, poli.nama_poli FROM dokter INNER JOIN poli ON dokter.id_poli = poli.id";
+                  $result = $connect->query($sql);
+                  $counter = 1;
+                  while ($row = $result->fetch_assoc()) {
+                    $id = $row['id'];
+                    $nama = $row['nama'];
+                    $alamat = $row['alamat'];
+                    $no_hp = $row['no_hp'];
+                    $nama_poli = $row['nama_poli'];
+                    echo '<tr>
+                      <th scope="row">' . $counter . '</th>
+                      <td>' . $nama . '</td>
+                      <td>' . $alamat . '</td>
+                      <td>' . $no_hp . '</td>
+                      <td>' . $nama_poli . '</td>
+                      <td>
+                      <button type="submit" class="btn btn-danger rounded-pill btn-sm" value="' . $id . '" id="btnDelete" onclick="delFunc(' . $id . ')">Hapus</button>
+                      </tr>';
+                    $counter = $counter + 1;
+                  }
+                  ?>
+                </tbody>
+              </table>
+              <!-- <a type="submit" class="btn btn-primary rounded-pill btn-sm" value="' . $id . '" id="btnEdit" namaPoli="' . $nama . '" 
+                      alamat="' . $alamat . '" href="admin_poli_edit.php?id=' . $id . '">Edit</a>  edit btn-->
+              <!-- End Table with stripped rows -->
+
             </div>
-            <div class="col-12">
-              <label for="inputEmail4" class="form-label">Keterangan</label>
-              <input type="text" class="form-control" name="keterangan" value="'.$row['keterangan'].'">
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ADD MODALS -->
+      <!-- Vertically centered Modal -->
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered" style="margin-top: -30px;">
+        Tambah Dokter
+      </button>
+      <div class="modal fade" id="verticalycentered" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Tambah Poli Baru</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary">Edit</button>
+            <div class="modal-body">
+              <!-- Vertical Form -->
+              <form class="row g-3" action="admin_dokter.php" method='post'>
+                <div class="col-12">
+                  <label for="Nama Dokter" class="form-label">Nama Dokter</label>
+                  <input type="text" class="form-control" name="namaDokter" autocomplete="off" required>
+                </div>
+                <div class="col-12">
+                  <label for="alamat" class="form-label">Alamat</label>
+                  <textarea type="text" class="form-control" name="alamat" autocomplete="off" required></textarea>
+                </div>
+                <div class="col-12">
+                  <label for="no_hp" class="form-label">Nomor HP</label>
+                  <input type="number" class="form-control" name="no_hp" autocomplete="off" required>
+                </div>
+                <div class="col-12">
+                  <label for="poli" class="form-label">Poli</label>
+                  <select class="form-select" id="floatingHari" aria-label="State" name="poli">
+                    <?php
+                      $dataPoliQuery = "SELECT * FROM poli";
+                      $dataPoli = $connect->query($dataPoliQuery);
+                      while($row = $dataPoli->fetch_assoc()) {
+                        echo "<option value='".$row['id']."'>".$row['nama_poli']."</option>";
+                      }
+                    ?>
+                  </select>
+                </div>
             </div>
-          </form>
-          ';
-        }?>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-primary" name="btnTambah">Tambah</button>
+              </form><!-- Vertical Form -->
+            </div>
+          </div>
+        </div>
+      </div><!-- End Vertically centered Modal-->
 
-      
+      <?php
+      if (isset($_POST['btnTambah'])) {
+        $nama_dokter = $_POST['namaDokter'];
+        $alamat = $_POST['alamat'];
+        $no_hp = $_POST['no_hp'];
+        $poli = $_POST['poli'];
+        $tambahDataQuery = "INSERT INTO dokter(nama,alamat,no_hp,id_poli) VALUES ('$nama_dokter','$alamat','$no_hp','$poli')";
 
-</section>
+        if ($connect->query($tambahDataQuery) === TRUE) {
+          echo "Record added successfully";
+        } else {
+          echo "Error adding record: " . $connect->error;
+        }
 
-</main><!-- End #main -->
+        header('Location: admin_dokter.php');
+      }
+      ?>
+
+
+    </section>
+
+
+
+  </main><!-- End #main -->
 
   <script>
     const btnsDelete = document.querySelectorAll('#btnDelete');
     // Passing ID, (Karena tidak pakai AJAX & JQuery, passing dilakukan manual dg JS ke URL yang nantinya akan refresh dan dibaca lagi oleh Web)
     function delFunc(id) {
       console.log(id);
-      location.href = `../../functions/deletePoli.php?id=${id}`;
+      location.href = `../../functions/deleteDokter.php?id=${id}`;
     };
   </script>
 
