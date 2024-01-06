@@ -352,12 +352,12 @@ if (isset($_SESSION['pasien'])) {
   <?php
   if (isset($_POST['id'])) {
     $getPoliId = $_POST['id'];
-    $sqlJadwal = "SELECT id, hari, jam_mulai, jam_selesai, id_dokter FROM jadwal_periksa WHERE id_dokter IN (SELECT id FROM dokter WHERE id_poli = $getPoliId)";
+    $sqlJadwal = "SELECT jadwal_periksa.id, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.id_dokter, dokter.nama FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id WHERE jadwal_periksa.id_dokter IN (SELECT id FROM dokter WHERE id_poli = $getPoliId)";
     $result = mysqli_query($connect, $sqlJadwal);
 
     $out = '';
     while ($row = mysqli_fetch_assoc($result)) {
-      $out .=  "<option value=" . $row['id'] . ">" . $row['hari'] . " | " . $row['jam_mulai'] . " - " . $row['jam_selesai'] . "</option>";
+      $out .=  "<option value=" . $row['id'] . ">" . $row['nama'] . " | " . $row['hari'] . " | " . $row['jam_mulai'] . " - " . $row['jam_selesai'] . "</option>";
     }
     echo $out;
   }
