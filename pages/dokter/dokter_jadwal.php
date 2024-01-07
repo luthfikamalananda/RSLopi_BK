@@ -306,7 +306,7 @@ if (!isset($_SESSION['dokter'])) {
                         <td>' . $row['hari'] . '</td>
                         <td>' . $row['jam_mulai'] . '</td>
                         <td>' . $row['jam_selesai'] . '</td>
-                        <td><a type="submit" AKTIF=' . $row['aktif'] . ' HARI='. $row['hari'] .' JMMULAI='. $row['jam_mulai'] .' JMSELESAI='. $row['jam_selesai'] .' id_jadwal='. $row['id'] .' class="btn btn-primary rounded-pill btn-sm" value="' . $row['id'] . '" id="btnEdit" href="admin_obat_edit.php?id=' . $row['id'] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">Edit</a> 
+                        <td><a type="submit" AKTIF=' . $row['aktif'] . ' HARI='. $row['hari'] .' JMMULAI='. $row['jam_mulai'] .' JMSELESAI='. $row['jam_selesai'] .' id_jadwal='. $row['id'] .' id_dokter='. $id_dokter .' class="btn btn-primary rounded-pill btn-sm" value="' . $row['id'] . '" id="btnEdit" href="admin_obat_edit.php?id=' . $row['id'] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">Edit</a> 
                         <a type="submit" class="btn btn-danger rounded-pill btn-sm" value="' . $row['id'] . '" id="btnDelete" href="../../functions/deleteJadwal.php?id=' . $row['id'] . '">Hapus</a>
                         <td align="center"><a type="submit" id="column_aktif">' . $row['aktif'] . '</a></td>
                         </tr>';
@@ -419,7 +419,7 @@ if (!isset($_SESSION['dokter'])) {
         const id = btn.getAttribute('id_jadwal');
         const aktif = btn.getAttribute('AKTIF');
 
-        document.getElementById('formJadwalEdit').setAttribute('action', `../../functions/editJadwal.php?id=${id}`)
+        document.getElementById('formJadwalEdit').setAttribute('action', `../../functions/editJadwal.php?id=${id}&id_dokter=<?php echo $id_dokter ?>`)
 
         console.log(hari, jmmulai, jmselesai, id);
 
