@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2024 at 12:54 AM
+-- Generation Time: Jan 07, 2024 at 04:10 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -103,21 +103,22 @@ CREATE TABLE `jadwal_periksa` (
   `id_dokter` int(11) NOT NULL,
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') NOT NULL,
   `jam_mulai` time NOT NULL,
-  `jam_selesai` time NOT NULL
+  `jam_selesai` time NOT NULL,
+  `aktif` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `jadwal_periksa`
 --
 
-INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(1, 1, 'Selasa', '15:00:00', '18:00:00'),
-(2, 1, 'Senin', '07:00:00', '14:00:00'),
-(3, 1, 'Kamis', '09:30:00', '18:00:00'),
-(4, 2, 'Rabu', '07:00:00', '15:00:00'),
-(21, 2, 'Selasa', '18:15:00', '22:15:00'),
-(24, 2, 'Kamis', '10:00:00', '17:00:00'),
-(64, 2, 'Sabtu', '15:30:00', '22:00:00');
+INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`, `aktif`) VALUES
+(1, 1, 'Selasa', '15:00:00', '18:00:00', 'N'),
+(2, 1, 'Senin', '07:00:00', '14:00:00', 'Y'),
+(3, 1, 'Kamis', '09:30:00', '18:00:00', 'N'),
+(4, 2, 'Rabu', '07:00:00', '15:00:00', 'Y'),
+(21, 2, 'Selasa', '18:15:00', '22:15:00', 'N'),
+(24, 2, 'Kamis', '10:00:00', '17:00:00', 'N'),
+(64, 2, 'Sabtu', '15:30:00', '22:00:00', 'N');
 
 -- --------------------------------------------------------
 
