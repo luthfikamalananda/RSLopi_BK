@@ -58,7 +58,7 @@ if (isset($_SESSION['pasien'])) {
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="pages/dokter/dokter_index.php" class="logo d-flex align-items-center">
+      <a href="" class="logo d-flex align-items-center">
         <img src="../../assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">Pasien RS Lopi</span>
       </a>
@@ -135,13 +135,13 @@ if (isset($_SESSION['pasien'])) {
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Dokter</h6>
+              <h6>Sign Out</h6>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            <!-- <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
@@ -156,7 +156,7 @@ if (isset($_SESSION['pasien'])) {
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
-            </li>
+            </li> -->
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -202,7 +202,7 @@ if (isset($_SESSION['pasien'])) {
       <h1>Poli</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="pages/dokter/dokter_index.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="pasien_index.php">Home</a></li>
           <li class="breadcrumb-item active">Poli</li>
         </ol>
       </nav>
