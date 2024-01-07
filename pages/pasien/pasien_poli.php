@@ -352,7 +352,7 @@ if (isset($_SESSION['pasien'])) {
   <?php
   if (isset($_POST['id'])) {
     $getPoliId = $_POST['id'];
-    $sqlJadwal = "SELECT jadwal_periksa.id, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.id_dokter, dokter.nama FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id WHERE jadwal_periksa.id_dokter IN (SELECT id FROM dokter WHERE id_poli = $getPoliId)";
+    $sqlJadwal = "SELECT jadwal_periksa.id, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.id_dokter, dokter.nama FROM jadwal_periksa INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id WHERE jadwal_periksa.id_dokter IN (SELECT id FROM dokter WHERE id_poli = $getPoliId) AND jadwal_periksa.aktif = 'Y'";
     $result = mysqli_query($connect, $sqlJadwal);
 
     $out = '';
