@@ -136,7 +136,7 @@ if (!isset($_SESSION['dokter'])) {
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" id="logoutNav">
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="../../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo $_SESSION['dokter'] ?></span>
           </a><!-- End Profile Iamge Icon -->
@@ -149,7 +149,7 @@ if (!isset($_SESSION['dokter'])) {
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            <!-- <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
@@ -167,7 +167,7 @@ if (!isset($_SESSION['dokter'])) {
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> -->
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="../../functions/logout.php">
@@ -460,14 +460,6 @@ if (!isset($_SESSION['dokter'])) {
       })
     });
   </script>
-
-
-<!-- <script>
-  const btnLogout = document.getElementById('logoutNav');
-  btnLogout.onclick(function() {
-
-  })
-</script> -->
 
 
   <!-- ======= Footer ======= -->
