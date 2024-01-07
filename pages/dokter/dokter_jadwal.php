@@ -208,7 +208,7 @@ if (!isset($_SESSION['dokter'])) {
 
     <?php
     $id_dokter = $_SESSION['id_dokter'];
-    $sqlRead = "SELECT id, hari, jam_mulai, jam_selesai FROM jadwal_periksa WHERE id_dokter=$id_dokter";
+    $sqlRead = "SELECT id, hari, jam_mulai, jam_selesai, aktif FROM jadwal_periksa WHERE id_dokter=$id_dokter";
     $result = $connect->query($sqlRead);
     ?>
 
@@ -283,30 +283,32 @@ if (!isset($_SESSION['dokter'])) {
             <div class="col-xxl-8 col-md-6">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Default Table</h5>
+                  <h5 class="card-title">Tabel Jadwal</h5>
 
                   <!-- Default Table -->
                   <table class="table">
                     <thead>
-                      <tr>
+                      <tr class="text-center">
                         <th scope="col">#</th>
                         <th scope="col">Hari</th>
                         <th scope="col">Jam Mulai</th>
                         <th scope="col">Jam Selesai</th>
                         <th scope="col">Action</th>
+                        <th scope="col" >Status</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
                       $counter = 1;
                       while ($row = $result->fetch_assoc()) {
-                        echo '<tr>
+                        echo '<tr class="text-center">
                         <th scope="row">' . $counter . '</th>
                         <td>' . $row['hari'] . '</td>
                         <td>' . $row['jam_mulai'] . '</td>
                         <td>' . $row['jam_selesai'] . '</td>
                         <td><a type="submit" HARI='. $row['hari'] .' JMMULAI='. $row['jam_mulai'] .' JMSELESAI='. $row['jam_selesai'] .' id_jadwal='. $row['id'] .' class="btn btn-primary rounded-pill btn-sm" value="' . $row['id'] . '" id="btnEdit" href="admin_obat_edit.php?id=' . $row['id'] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">Edit</a> 
                         <a type="submit" class="btn btn-danger rounded-pill btn-sm" value="' . $row['id'] . '" id="btnDelete" href="../../functions/deleteJadwal.php?id=' . $row['id'] . '">Hapus</a>
+                        <td align="center"><a type="submit" id="column_aktif">' . $row['aktif'] . '</a></td>
                         </tr>';
                         $counter = $counter + 1;
                       }
@@ -414,6 +416,18 @@ if (!isset($_SESSION['dokter'])) {
         document.getElementById('floatingTimeStartEdit').value = jmmulai;
         document.getElementById('floatingTimeEndEdit').value = jmselesai;
       })
+    });
+
+    // Change Aktif from 'Y' to 'N'
+    const kolomAktif = document.querySelectorAll('#column_aktif');
+    kolomAktif.forEach(kolom => {
+      if (kolom.innerText == 'Y') {
+        kolom.setAttribute('class', 'btn btn-success rounded-pill btn-sm');
+        kolom.innerText = 'AKTIF'
+      } else if (kolom.innerText == 'N') {
+        kolom.setAttribute('class', 'btn btn-danger rounded-pill btn-sm');
+        kolom.innerText = 'NON-AKTIF'
+      }
     });
 
   </script>
