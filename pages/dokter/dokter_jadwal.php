@@ -306,7 +306,7 @@ if (!isset($_SESSION['dokter'])) {
                         <td>' . $row['hari'] . '</td>
                         <td>' . $row['jam_mulai'] . '</td>
                         <td>' . $row['jam_selesai'] . '</td>
-                        <td><a type="submit" HARI='. $row['hari'] .' JMMULAI='. $row['jam_mulai'] .' JMSELESAI='. $row['jam_selesai'] .' id_jadwal='. $row['id'] .' class="btn btn-primary rounded-pill btn-sm" value="' . $row['id'] . '" id="btnEdit" href="admin_obat_edit.php?id=' . $row['id'] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">Edit</a> 
+                        <td><a type="submit" AKTIF=' . $row['aktif'] . ' HARI='. $row['hari'] .' JMMULAI='. $row['jam_mulai'] .' JMSELESAI='. $row['jam_selesai'] .' id_jadwal='. $row['id'] .' class="btn btn-primary rounded-pill btn-sm" value="' . $row['id'] . '" id="btnEdit" href="admin_obat_edit.php?id=' . $row['id'] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">Edit</a> 
                         <a type="submit" class="btn btn-danger rounded-pill btn-sm" value="' . $row['id'] . '" id="btnDelete" href="../../functions/deleteJadwal.php?id=' . $row['id'] . '">Hapus</a>
                         <td align="center"><a type="submit" id="column_aktif">' . $row['aktif'] . '</a></td>
                         </tr>';
@@ -369,6 +369,16 @@ if (!isset($_SESSION['dokter'])) {
                         <label for="floatingName">Jam Selesai</label>
                       </div>
                     </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <select class="form-select" id="floatingAktifEdit" aria-label="State" name="aktif">
+                          <option selected disabled>Pilih Hari</option>
+                          <option value="Y">Aktif</option>
+                          <option value="N">Non Aktif</option>
+                        </select>
+                        <label for="floatingAktifEdit">Tentukan Hari</label>
+                      </div>
+                    </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -385,7 +395,7 @@ if (!isset($_SESSION['dokter'])) {
       $jam_mulai = $_POST['time_start'];
       $jam_selesai = $_POST['time_end'];
 
-      $sql = "INSERT jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai) VALUES ('$id_dokter', '$hari', '$jam_mulai', '$jam_selesai')";
+      $sql = "INSERT jadwal_periksa(id_dokter, hari, jam_mulai, jam_selesai, aktif) VALUES ('$id_dokter', '$hari', '$jam_mulai', '$jam_selesai', 'N')";
 
       if ($connect->query($sql) === TRUE) {
         echo "Record added successfully";
@@ -407,6 +417,7 @@ if (!isset($_SESSION['dokter'])) {
         const jmmulai = btn.getAttribute('JMMULAI');
         const jmselesai = btn.getAttribute('JMSELESAI');
         const id = btn.getAttribute('id_jadwal');
+        const aktif = btn.getAttribute('AKTIF');
 
         document.getElementById('formJadwalEdit').setAttribute('action', `../../functions/editJadwal.php?id=${id}`)
 
@@ -415,6 +426,7 @@ if (!isset($_SESSION['dokter'])) {
         document.getElementById('floatingHari').value = hari;
         document.getElementById('floatingTimeStartEdit').value = jmmulai;
         document.getElementById('floatingTimeEndEdit').value = jmselesai;
+        document.getElementById('floatingAktifEdit').value = aktif;
       })
     });
 
