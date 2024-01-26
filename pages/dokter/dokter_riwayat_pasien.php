@@ -224,7 +224,7 @@ if (!isset($_SESSION['dokter'])) {
               <h5 class="card-title">Riwayat Pasien</h5>
               <?php
               $id_pasien = $_GET['id'];
-              $sql = "SELECT periksa.tgl_periksa, pasien.nama, daftar_poli.keluhan, periksa.catatan, periksa.biaya_periksa FROM pasien INNER JOIN daftar_poli ON pasien.id = daftar_poli.id_pasien INNER JOIN jadwal_periksa ON jadwal_periksa.id = daftar_poli.id_jadwal INNER JOIN periksa ON periksa.id_daftar_poli = daftar_poli.id WHERE pasien.id = $id_pasien";
+              $sql = "SELECT periksa.id, periksa.tgl_periksa, pasien.nama, daftar_poli.keluhan, periksa.catatan, periksa.biaya_periksa FROM pasien INNER JOIN daftar_poli ON pasien.id = daftar_poli.id_pasien INNER JOIN jadwal_periksa ON jadwal_periksa.id = daftar_poli.id_jadwal INNER JOIN periksa ON periksa.id_daftar_poli = daftar_poli.id WHERE pasien.id = $id_pasien";
               $result = $connect->query($sql);
               if ($jumlah = mysqli_num_rows($result) == 0) {
                 echo "<h2>Belum Pernah Periksa</h2>";
@@ -238,6 +238,7 @@ if (!isset($_SESSION['dokter'])) {
                         <th scope='col'>Keluhan</th>
                         <th scope='col'>Catatan</th>
                         <th scope='col'>Biaya</th>
+                        <th scope='col' class='text-center'>Obat</th>
                       </tr>
                     </thead>
                     <tbody>";
@@ -247,12 +248,21 @@ if (!isset($_SESSION['dokter'])) {
                   $keluhan = $row['keluhan'];
                   $catatan = $row['catatan'];
                   $biaya_periksa = $row['biaya_periksa'];
+
+                  $periksaID = $row['id'];
+                  $queryObat = "SELECT obat.nama_obat FROM obat INNER JOIN detail_periksa ON detail_periksa.id_obat = obat.id WHERE detail_periksa.id_periksa = $periksaID";
+                  $resultObat = $connect->query($queryObat);
+                  $obat = (string) NULL;
+                while ($namaObat = $resultObat->fetch_array()) {
+                  $obat =  $namaObat['nama_obat']. ', ' . $obat ;
+                }
                   echo  '<tr>
                         <th scope="row">' . $tgl_periksa . '</th>
                         <td>' . $nama . '</td>
                         <td>' . $keluhan . '</td>
                         <td>' . $catatan . '</td>
                         <td>' . $biaya_periksa . '</td>
+                        <td class="text-center">' .  $obat. '</td>
                         </tr>';
                   $counter = $counter + 1;
                 };
@@ -277,7 +287,33 @@ if (!isset($_SESSION['dokter'])) {
     </script>
 
 
-
+    <!-- Vertically centered Modal -->
+    <div class="modal fade" id="verticalycentered" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Daftar Obat</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3" action="" method="POST" name="formJadwalEdit" id="formJadwalEdit">
+              <div class="col-md-12">
+                <ul class="list-group">
+                  <li class="list-group-item">Dapibus ac facilisis in</li>
+                  <li class="list-group-item">Morbi leo risus</li>
+                  <li class="list-group-item">Porta ac consectetur ac</li>
+                  <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="btnEdit">Save changes</button>
+          </div>
+        </div>
+      </div>
+      </form><!-- End floating Labels Form -->
+    </div><!-- End Vertically centered Modal-->
 
   </main><!-- End #main -->
 
